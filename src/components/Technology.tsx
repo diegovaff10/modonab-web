@@ -64,41 +64,48 @@ export default function Technology() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-black overflow-hidden flex items-center justify-center py-32"
+      className="relative w-full min-h-screen bg-black overflow-hidden flex items-center justify-center py-48"
     >
       <div 
         ref={imageRef} 
-        className="absolute inset-0 w-full h-full opacity-40"
+        className="absolute inset-0 w-full h-full opacity-30"
       >
         <Image 
           src="/media/estetica_digital_02.jpg"
-          alt="Technology at Modonab"
+          alt="Advanced Digital Tech"
           fill
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
       </div>
 
-      <div ref={contentRef} className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-12">
-        <h2 className="font-[family-name:var(--font-instrument-serif)] text-5xl md:text-8xl text-white uppercase tracking-tighter leading-none">
-          {language === 'es' ? "Tecnología sin Compromisos" : "Uncompromising Technology"}
-        </h2>
+      <div ref={contentRef} className="relative z-10 max-w-6xl mx-auto px-6 text-center space-y-16">
+        <div className="space-y-6">
+          <p className="font-[family-name:var(--font-tenor)] text-[10px] uppercase tracking-[0.5em] text-brand-gold/80">
+            {language === 'es' ? "Infraestructura Digital" : "Digital Infrastructure"}
+          </p>
+          <h2 className="font-[family-name:var(--font-instrument-serif)] text-5xl md:text-8xl text-white tracking-tighter leading-none uppercase">
+            {language === 'es' ? "Tecnología sin Compromisos" : "Uncompromising Technology"}
+          </h2>
+        </div>
         
-        <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-16">
           {features.map((f, i) => (
-            <div key={i} className="flex flex-col items-center gap-4">
-              <div className="w-[1px] h-12 bg-brand-gold" />
-              <span className="font-[family-name:var(--font-tenor)] text-[10px] md:text-xs text-white/60 uppercase tracking-[0.4em]">
+            <div key={i} className="flex flex-col items-center gap-6">
+              <span className="font-[family-name:var(--font-instrument-serif)] text-3xl text-white/90">
+                0{i + 1}
+              </span>
+              <span className="font-[family-name:var(--font-tenor)] text-[10px] text-white/40 uppercase tracking-[0.4em] max-w-[120px]">
                 {language === 'es' ? f.es : f.en}
               </span>
             </div>
           ))}
         </div>
 
-        <p className="font-[family-name:var(--font-cormorant)] text-2xl md:text-4xl text-white/40 italic font-light max-w-3xl mx-auto">
+        <p className="font-[family-name:var(--font-cormorant)] text-2xl md:text-4xl text-white/20 italic font-light max-w-3xl mx-auto">
           {language === 'es' 
-            ? "Liderando la era digital de la odontología en Mendoza."
-            : "Leading the digital era of dentistry in Mendoza."}
+            ? "Liderando la era digital de la odontología."
+            : "Leading the digital era of dentistry."}
         </p>
       </div>
     </section>

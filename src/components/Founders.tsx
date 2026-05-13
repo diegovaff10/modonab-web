@@ -71,35 +71,43 @@ export default function Founders() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full bg-background py-32 px-6 md:px-12 lg:px-24 border-t border-foreground/5"
+      className="relative w-full bg-background py-48 px-6 md:px-12 lg:px-24 border-t border-foreground/5"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-6xl mb-32 text-center md:text-left leading-none">
-          {language === 'es' ? "Los Maestros Detrás de MODONAB" : "The Masters Behind MODONAB"}
-        </h2>
+        <div className="flex flex-col md:flex-row justify-between items-baseline mb-32 gap-6">
+          <h2 className="font-[family-name:var(--font-instrument-serif)] text-5xl md:text-7xl leading-none">
+            {language === 'es' ? "Los Maestros" : "The Masters"}
+          </h2>
+          <p className="font-[family-name:var(--font-tenor)] text-[10px] uppercase tracking-[0.4em] opacity-40">
+            {language === 'es' ? "Liderazgo y Visión" : "Leadership & Vision"}
+          </p>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-48 md:gap-24">
           {doctors.map((doc, idx) => (
-            <div key={idx} className="doctor-card flex flex-col gap-10">
-              <div className="img-container relative aspect-[3/4] w-full overflow-hidden bg-foreground/5">
+            <div 
+              key={idx} 
+              className={`doctor-card flex flex-col gap-12 ${idx === 1 ? 'md:mt-32' : ''}`}
+            >
+              <div className="img-container relative aspect-[4/5] w-full overflow-hidden bg-foreground/[0.02]">
                 <Image 
                   src={doc.image}
                   alt={doc.name}
                   fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
+                  className="object-cover grayscale brightness-90 hover:grayscale-0 hover:brightness-100 transition-all duration-1000 scale-105 hover:scale-100"
                 />
               </div>
               
-              <div className="doctor-info space-y-6">
-                <div>
-                  <h3 className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-5xl mb-2">
-                    {doc.name}
-                  </h3>
+              <div className="doctor-info space-y-8">
+                <div className="space-y-2">
                   <p className="font-[family-name:var(--font-tenor)] text-[10px] uppercase tracking-[0.3em] text-brand-gold">
                     {doc.title}
                   </p>
+                  <h3 className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-6xl tracking-tight">
+                    {doc.name}
+                  </h3>
                 </div>
-                <p className="font-[family-name:var(--font-cormorant)] text-xl md:text-2xl font-light leading-relaxed text-foreground/70 max-w-lg">
+                <p className="font-[family-name:var(--font-cormorant)] text-xl md:text-2xl font-light leading-relaxed text-foreground/60 max-w-lg">
                   {doc.bio}
                 </p>
               </div>

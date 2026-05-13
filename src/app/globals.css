@@ -54,6 +54,20 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  filter: contrast(150%) brightness(100%);
+}
+
 /* SplitType utility */
 .line {
   overflow: hidden;

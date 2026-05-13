@@ -20,54 +20,53 @@ export default function Manifesto() {
 
     const split = new SplitType(textRef.current, { types: "chars,words" });
 
-    // Scrubbing animation: Faster and more responsive
+    // Premium Scrubbing: Smooth gradient-like illumination
     gsap.fromTo(
       split.chars,
       { 
-        opacity: 0.1,
-        color: "rgba(128,128,128,0.2)" 
+        opacity: 0.05,
+        filter: "blur(4px)",
       },
       {
         opacity: 1,
-        color: "var(--foreground)",
-        stagger: 0.05,
-        ease: "none",
+        filter: "blur(0px)",
+        stagger: 0.1,
+        ease: "power2.inOut",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%", // Starts earlier
-          end: "top 20%",   // Finishes faster
-          scrub: 0.5,
+          start: "top 85%",
+          end: "top 15%",
+          scrub: 0.8,
         },
       }
     );
 
-    // Floating images reveal and parallax
-    [imgLeftRef.current, imgRightRef.current].forEach((img, i) => {
+    // Refined Image Reveals: Smooth scale and fade
+    const images = [imgLeftRef.current, imgRightRef.current];
+    images.forEach((img, i) => {
       gsap.fromTo(img, 
         { 
-          y: 100, 
+          y: 60, 
           opacity: 0, 
-          scale: 0.8,
-          clipPath: "inset(100% 0% 0% 0%)"
+          scale: 1.1,
         },
         {
           y: 0,
-          opacity: 1,
+          opacity: 0.5, // Subtle presence
           scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 2,
+          duration: 2.5,
           ease: "expo.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 60%",
+            start: "top 70%",
             toggleActions: "play none none reverse"
           }
         }
       );
 
-      // Subtle parallax for the images
+      // Slow, surgical parallax
       gsap.to(img, {
-        y: i === 0 ? -100 : -150,
+        y: i === 0 ? -60 : -100,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -86,44 +85,49 @@ export default function Manifesto() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-6 py-32 md:py-64 overflow-hidden"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-6 py-48 md:py-80 overflow-hidden"
     >
-      {/* FLOATING IMAGES */}
+      {/* FLOATING IMAGES - More Integrated & Subtle */}
       <div 
         ref={imgLeftRef}
-        className="absolute left-[-5%] top-[20%] w-[20vw] aspect-[3/4] z-0 opacity-40 hidden lg:block"
+        className="absolute left-[5%] top-[15%] w-[18vw] aspect-[4/5] z-0 overflow-hidden rounded-sm hidden lg:block"
       >
         <Image 
           src="/media/estetica2.jpg"
-          alt="Dental Detail"
+          alt="Precision"
           fill
-          className="object-cover grayscale"
+          className="object-cover grayscale brightness-75"
         />
       </div>
 
       <div 
         ref={imgRightRef}
-        className="absolute right-[-2%] bottom-[15%] w-[25vw] aspect-[4/5] z-0 opacity-40 hidden lg:block"
+        className="absolute right-[8%] bottom-[20%] w-[22vw] aspect-[3/4] z-0 overflow-hidden rounded-sm hidden lg:block"
       >
         <Image 
           src="/media/perfect_smile.png"
-          alt="Smile Perfect"
+          alt="Craftsmanship"
           fill
-          className="object-cover grayscale"
+          className="object-cover grayscale brightness-75"
         />
       </div>
 
-      <div className="max-w-7xl mx-auto w-full z-10 relative">
+      <div className="max-w-6xl mx-auto w-full z-10 relative">
         <h2 
           ref={textRef}
-          className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tight text-center md:text-left"
+          className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight text-center md:text-left balance-text"
         >
-          {t('manifestoMain')} {t('manifestoSecond')}
+          {t('manifestoMain')} <br className="hidden md:block" />
+          <span className="font-[family-name:var(--font-cormorant)] italic font-light opacity-80">
+            {t('manifestoSecond')}
+          </span>
         </h2>
       </div>
 
-      {/* Subtle visual guide */}
-      <div className="absolute left-1/2 bottom-12 -translate-x-1/2 w-[1px] h-24 bg-foreground/10" />
+      {/* Editorial Marker */}
+      <div className="absolute left-12 bottom-12 font-[family-name:var(--font-tenor)] text-[10px] uppercase tracking-[0.4em] opacity-30 hidden md:block">
+        Modonab — Sequence 01
+      </div>
     </section>
   );
 }
