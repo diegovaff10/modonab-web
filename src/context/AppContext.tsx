@@ -26,7 +26,10 @@ const translations = {
     navConsultation: "Consultation",
     loaderText: "MODONAB",
     row1: "DENTAL AESTHETICS — IMPLANTOLOGY — ORTHODONTICS — ORAL SURGERY — PERIODONTICS — ENDODONTICS —",
-    row2: "INNOVATION — PRECISION — CRAFTSMANSHIP — LUXURY — ADVANCED CARE — DIGITAL DENTISTRY —"
+    row2: "INNOVATION — PRECISION — CRAFTSMANSHIP — LUXURY — ADVANCED CARE — DIGITAL DENTISTRY —",
+    manifestoMain: "Technology as the new standard of dentistry.",
+    manifestoSecond: "Where digital innovation meets clinical mastery.",
+    manifestoKeywords: ["Technology", "Innovation", "Mastery"]
   },
   es: {
     heroTitle: "MODONAB",
@@ -39,7 +42,10 @@ const translations = {
     navConsultation: "Consulta",
     loaderText: "MODONAB",
     row1: "ESTÉTICA DENTAL — IMPLANTOLOGÍA — ORTODONCIA — CIRUGÍA ORAL — PERIODONCIA — ENDODONCIA —",
-    row2: "INNOVACIÓN — PRECISIÓN — ARTESANÍA — LUJO — CUIDADO AVANZADO — ODONTOLOGÍA DIGITAL —"
+    row2: "INNOVACIÓN — PRECISIÓN — ARTESANÍA — LUJO — CUIDADO AVANZADO — ODONTOLOGÍA DIGITAL —",
+    manifestoMain: "La tecnología como el nuevo estándar de la odontología.",
+    manifestoSecond: "Donde la innovación digital se encuentra con la maestría clínica.",
+    manifestoKeywords: ["Tecnología", "Innovación", "Maestría"]
   }
 };
 

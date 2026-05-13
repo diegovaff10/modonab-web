@@ -142,14 +142,14 @@ export default function Navigation() {
               key={idx} 
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
-              className="font-[family-name:var(--font-instrument-serif)] text-4xl md:text-6xl text-white/90 hover:text-white transition-colors uppercase tracking-tight"
+              className="font-[family-name:var(--font-cormorant)] italic text-4xl md:text-6xl text-white/90 hover:text-white transition-colors uppercase tracking-tight"
             >
               {t(item.key)}
             </Link>
           ))}
           
           <div className="mt-10 flex flex-col items-center gap-6">
-            <div className="flex gap-4 text-white/50 text-xs uppercase tracking-[0.2em] font-sans">
+            <div className="flex gap-4 text-white/50 text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-tenor)]">
               <button 
                 onClick={() => setLanguage('es')}
                 className={`transition-colors ${language === 'es' ? 'text-white font-bold' : 'hover:text-white'}`}
@@ -222,7 +222,7 @@ export default function Navigation() {
           <Link 
             href="#contact"
             onClick={() => isMenuOpen && setIsMenuOpen(false)}
-            className="group relative font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium"
+            className="group relative font-[family-name:var(--font-tenor)] text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium"
           >
             {t('navConsultation')}
           </Link>
