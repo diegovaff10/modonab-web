@@ -1,26 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif, Cormorant_Garamond, Tenor_Sans } from "next/font/google";
+import { Inter, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navigation from "@/components/Navigation";
 import { AppProvider } from "@/context/AppContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const instrumentSerif = Instrument_Serif({ 
-  weight: "400", 
-  subsets: ["latin"],
-  variable: "--font-instrument-serif"
+const syne = Syne({ 
+  subsets: ["latin"], 
+  variable: "--font-syne",
+  weight: ["400", "500", "600", "700", "800"] 
 });
-const cormorant = Cormorant_Garamond({
-  weight: ["300", "400", "500"],
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant"
-});
-const tenorSans = Tenor_Sans({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-tenor"
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ["latin"], 
+  variable: "--font-space-grotesk" 
 });
 
 export const metadata: Metadata = {
@@ -34,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${cormorant.variable} ${tenorSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <body className="antialiased font-sans bg-brand-dark text-brand-light">
         <AppProvider>
           <SmoothScroll>

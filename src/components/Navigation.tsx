@@ -204,7 +204,7 @@ export default function Navigation() {
           <Link 
             href="/" 
             onClick={() => isMenuOpen && setIsMenuOpen(false)}
-            className="font-[family-name:var(--font-instrument-serif)] text-3xl tracking-wide uppercase"
+            className="font-[family-name:var(--font-syne)] text-3xl tracking-wide uppercase"
           >
             Modonab
           </Link>
