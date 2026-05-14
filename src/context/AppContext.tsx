@@ -11,7 +11,7 @@ interface AppContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
-  t: (key: string) => string;
+  t: (key: string) => any;
 }
 
 const translations = {
