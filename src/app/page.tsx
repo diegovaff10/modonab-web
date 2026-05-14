@@ -5,14 +5,11 @@ import { useLenis } from "lenis/react";
 import Hero from "@/components/Hero";
 import Loader from "@/components/Loader";
 import Manifesto from "@/components/Manifesto";
-import Founders from "@/components/Founders";
-
-import { useAppContext } from "@/context/AppContext";
+import Services from "@/components/Services";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const lenis = useLenis();
-  const { t } = useAppContext();
 
   useEffect(() => {
     // Stop scrolling while loading
@@ -29,6 +26,7 @@ export default function Home() {
 
       <Hero />
       <Manifesto />
+      <Services />
     </main>
   );
 }

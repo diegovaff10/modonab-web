@@ -64,7 +64,7 @@ export default function Hero() {
 
     // 2. Add an overlay darkness as video expands, to make text pop
     tl.to(videoWrapperRef.current, {
-      backgroundColor: "rgba(0,0,0,0.4)",
+      backgroundColor: "rgba(0,0,0,0.5)",
       ease: "none"
     }, 0.2);
 
@@ -97,31 +97,36 @@ export default function Hero() {
     };
   }, [t]); // Re-run if translations change
 
+  // Helper to render basic text parts
+  const renderMarquee = (text: string) => {
+    return text; // Reverted back to simple text string
+  };
+
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen bg-[#0a0a0a] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-screen bg-black flex items-center justify-center overflow-hidden"
     >
       {/* Background Scrolling Rows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] z-0 overflow-hidden pointer-events-none opacity-20 flex flex-col gap-2">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] z-0 overflow-hidden pointer-events-none opacity-25 flex flex-col gap-2">
         <div ref={row1Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
-            {t('row1')}
+          <span className="font-instrument text-[10vw] uppercase whitespace-nowrap leading-none tracking-tighter">
+            {renderMarquee(t('row1'))} {renderMarquee(t('row1'))}
           </span>
         </div>
         <div ref={row2Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
-            {t('row2')}
+          <span className="font-instrument text-[10vw] uppercase whitespace-nowrap leading-none tracking-tighter">
+            {renderMarquee(t('row2'))} {renderMarquee(t('row2'))}
           </span>
         </div>
         <div ref={row3Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
-            {t('row1')}
+          <span className="font-instrument text-[10vw] uppercase whitespace-nowrap leading-none tracking-tighter">
+            {renderMarquee(t('row1'))} {renderMarquee(t('row1'))}
           </span>
         </div>
         <div ref={row4Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
-            {t('row2')}
+          <span className="font-instrument text-[10vw] uppercase whitespace-nowrap leading-none tracking-tighter">
+            {renderMarquee(t('row2'))} {renderMarquee(t('row2'))}
           </span>
         </div>
       </div>

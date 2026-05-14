@@ -1,27 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdfdfc;
-  --foreground: #0a0a0a;
-  --color-brand-teal: #0d3b36;
-  --color-brand-gold: #c5a880;
-  --color-brand-dark: #0a0a0a;
-  --color-brand-light: #fdfdfc;
+  --black: #050505;
+  --ink: #0a0a0a;
+  --paper: #f8f8f8;
+  --bone: #e5e5e5;
+  --muted: #888888;
+  --accent: #FF3300; /* Naranja Neón / Rojo vibrante */
+  --line: rgba(255, 255, 255, 0.1);
+  --line-light: rgba(0, 0, 0, 0.1);
+  --pad: clamp(20px, 4vw, 70px);
+
+  /* Set default background/foreground to the dark theme automatically */
+  --background: var(--ink);
+  --foreground: var(--paper);
 }
 
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #fdfdfc;
+  --background: var(--black);
+  --foreground: var(--paper);
 }
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-inter: var(--font-inter);
+  --font-syne: var(--font-syne);
+  --font-space: var(--font-space-grotesk);
+  --font-instrument: var(--font-instrument-serif);
+  --font-cormorant: var(--font-cormorant);
+  --font-tenor: var(--font-tenor);
 
-  --color-brand-teal: var(--color-brand-teal);
-  --color-brand-gold: var(--color-brand-gold);
-  --color-brand-dark: var(--color-brand-dark);
-  --color-brand-light: var(--color-brand-light);
+  --color-black: var(--black);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-bone: var(--bone);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-line-light: var(--line-light);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
