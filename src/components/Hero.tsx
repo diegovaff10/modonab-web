@@ -105,22 +105,22 @@ export default function Hero() {
       {/* Background Scrolling Rows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] z-0 overflow-hidden pointer-events-none opacity-20 flex flex-col gap-2">
         <div ref={row1Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-syne)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
+          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
             {t('row1')}
           </span>
         </div>
         <div ref={row2Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-syne)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
+          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
             {t('row2')}
           </span>
         </div>
         <div ref={row3Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-syne)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
+          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
             {t('row1')}
           </span>
         </div>
         <div ref={row4Ref} className="flex w-max">
-          <span className="font-[family-name:var(--font-syne)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
+          <span className="font-[family-name:var(--font-instrument-serif)] text-[10vw] text-brand-light uppercase whitespace-nowrap leading-none tracking-tighter">
             {t('row2')}
           </span>
         </div>
@@ -146,26 +146,27 @@ export default function Hero() {
       {/* Overlay Typography */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none mt-24">
         <div className="overflow-hidden">
-          <h1 ref={titleRef} className="hero-title font-[family-name:var(--font-syne)] text-[18vw] md:text-[15vw] font-extrabold leading-[0.8] tracking-tighter text-white uppercase mix-blend-difference pointer-events-none">
+          <h1
+            ref={titleRef}
+            className="font-[family-name:var(--font-instrument-serif)] text-7xl md:text-9xl text-center text-brand-light font-normal tracking-tight"
+          >
             {t('heroTitle')}
           </h1>
-          
-          <div className="hero-description mt-8 md:mt-12 max-w-lg mx-auto md:mx-0">
-            <p ref={subtitleRef} className="font-[family-name:var(--font-space-grotesk)] text-lg md:text-xl font-light text-white/80 leading-relaxed uppercase tracking-widest">
-              {t('heroSubtitle')}
-            </p>
-          </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="hero-scroll absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-          <span className="font-[family-name:var(--font-space-grotesk)] text-[10px] uppercase tracking-[0.5em] text-white/40">
-            {t('scrollDiscover')}
-          </span>
-          <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-brand-gold origin-top animate-scroll-line" />
-          </div>
+        <div className="overflow-hidden mt-6">
+          <p
+            ref={subtitleRef}
+            className="font-sans text-brand-light/80 text-lg md:text-xl font-light uppercase tracking-[0.2em] text-center"
+          >
+            {t('heroSubtitle')}
+          </p>
         </div>
+      </div>
+
+      {/* Minimal UI initially visible */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-brand-light/60 font-sans uppercase tracking-[0.3em] text-xs animate-pulse">
+        {t('scrollDiscover')}
       </div>
     </section>
   );

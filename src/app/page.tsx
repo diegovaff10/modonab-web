@@ -35,7 +35,6 @@ export default function Home() {
       <Hero />
       <Manifesto />
       <Technology />
-      <Founders />
     </main>
   );
 }
