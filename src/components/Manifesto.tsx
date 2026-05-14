@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -10,116 +10,190 @@ import { useAppContext } from "@/context/AppContext";
 export default function Manifesto() {
   const { t } = useAppContext();
   const containerRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
-  const parallaxRef = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
+
+  const phrases = [
+    { main: t('manifestoMain'), second: t('manifestoSecond') },
+    { main: "Odontología 100% Digital.", second: "Diseño. Precisión. Vanguardia." },
+    { main: "Ingeniería en cada sonrisa.", second: "Precisión milimétrica. Estética perfecta." },
+    { main: "Flujo digital total.", second: "La evolución del diseño de sonrisa." },
+    { main: "Estética Digital Avanzada.", second: "Donde la tecnología diseña la perfección." },
+    { main: "Precisión algorítmica.", second: "Arte clínico." }
+  ];
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const currentPhrase = phrases[phraseIndex];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    if (!textRef.current) return;
+    if (!textRef.current || !containerRef.current || !imagesRef.current) return;
 
-    // Split text into lines for the "Drop" effect
+    // Split text into lines for smooth mask reveal
     const split = new SplitType(textRef.current, { types: "lines" });
     
-    // Wrap each line in a container with perspective
+    // Wrap each line in a container with hidden overflow for the mask effect
     split.lines?.forEach((line) => {
       const wrapper = document.createElement("div");
-      wrapper.style.perspective = "1000px";
       wrapper.style.overflow = "hidden";
+      wrapper.style.display = "block";
       line.parentNode?.insertBefore(wrapper, line);
       wrapper.appendChild(line);
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-      },
-    });
+    const ctx = gsap.context(() => {
+      // 1. Pinned Text Sequence
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=150%", // Pins for 150% of the viewport height
+          scrub: 1,
+          pin: true,
+        },
+      });
 
-    // 3D Drop Animation
-    tl.fromTo(
-      split.lines,
-      {
-        opacity: 0,
-        rotateX: -90,
-        y: 100,
-        scale: 0.8,
-        transformOrigin: "top center",
-      },
-      {
-        opacity: 1,
-        rotateX: 0,
-        y: 0,
-        scale: 1,
-        stagger: 0.2,
-        ease: "power2.out",
-      }
-    );
+      // Text lines reveal smoothly from the bottom
+      tl.fromTo(
+        split.lines,
+        {
+          y: "120%",
+          opacity: 0,
+          rotateZ: 2,
+        },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateZ: 0,
+          stagger: 0.05,
+          duration: 1,
+          ease: "power3.out",
+        }
+      )
+      // Slight fade out as we scroll further
+      .to(split.lines, {
+        opacity: 0.3,
+        scale: 0.95,
+        stagger: 0.05,
+        duration: 1,
+        ease: "power2.inOut",
+      }, "+=0.5");
 
-    // Parallax images reveal
-    const images = parallaxRef.current?.querySelectorAll(".parallax-img");
-    images?.forEach((img, i) => {
-      gsap.fromTo(img, 
-        { y: 200 * (i + 1), opacity: 0 },
-        { 
-          y: -100 * (i + 1), 
-          opacity: 0.4,
-          ease: "none",
+      // 2. Images Parallax & Clip-path Unveil Effect
+      const imageWrappers = gsap.utils.toArray(".image-wrapper") as HTMLElement[];
+      
+      imageWrappers.forEach((wrapper, i) => {
+        const img = wrapper.querySelector("img");
+        
+        // Speed variation for parallax
+        const yOffset = i === 0 ? -150 : i === 1 ? -300 : -200;
+
+        const imgTl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top bottom",
             end: "bottom top",
             scrub: true,
           }
+        });
+
+        // The wrapper moves up at different speeds (Parallax)
+        imgTl.to(wrapper, {
+          y: yOffset,
+          ease: "none",
+        });
+
+        // Reveal the image using clip-path (curtain effect)
+        gsap.fromTo(wrapper,
+          { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top 85%", // Starts revealing when wrapper enters viewport
+              end: "top 40%",
+              scrub: 1,
+            }
+          }
+        );
+
+        // The image itself scales down inside the wrapper to create depth
+        if (img) {
+          gsap.fromTo(img,
+            { scale: 1.4 },
+            {
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: wrapper,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              }
+            }
+          );
         }
-      );
-    });
+      });
+    }, containerRef);
 
     return () => {
       split.revert();
+      ctx.revert();
     };
-  }, [t]);
+  }, [t, phraseIndex]);
 
   return (
-    <section 
-      ref={containerRef}
-      className="relative w-full min-h-[150vh] bg-[#050505] text-white flex flex-col items-center justify-center px-6 py-64 overflow-hidden"
-    >
-      {/* Background Parallax Elements */}
-      <div ref={parallaxRef} className="absolute inset-0 pointer-events-none">
-        <div className="parallax-img absolute top-[20%] left-[10%] w-[15vw] aspect-[3/4] overflow-hidden opacity-0 grayscale">
-          <Image src="/media/estetica2.jpg" alt="Detail" fill className="object-cover" />
-        </div>
-        <div className="parallax-img absolute bottom-[20%] right-[10%] w-[20vw] aspect-[4/5] overflow-hidden opacity-0 grayscale">
-          <Image src="/media/perfect_smile.png" alt="Smile" fill className="object-cover" />
-        </div>
-        <div className="parallax-img absolute top-[40%] right-[20%] w-[10vw] aspect-square overflow-hidden opacity-0 grayscale rounded-full">
-          <Image src="/media/estetica_digital_02.jpg" alt="Digital" fill className="object-cover" />
-        </div>
-      </div>
+    <>
+      {/* Botón temporal de testing */}
+      <button 
+        onClick={() => setPhraseIndex((prev) => (prev + 1) % phrases.length)}
+        className="fixed bottom-8 right-8 z-50 bg-[#C8A97E] text-black px-6 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(200,169,126,0.3)]"
+      >
+        Cambiar Frase ({phraseIndex + 1}/{phrases.length})
+      </button>
 
-      <div className="max-w-6xl mx-auto w-full z-10 text-center">
-        <p className="font-[family-name:var(--font-tenor)] text-[10px] uppercase tracking-[0.6em] text-brand-gold mb-12 opacity-60">
-          Our Vision — Nuestra Visión
-        </p>
-        
-        <h2 
-          ref={textRef}
-          className="font-[family-name:var(--font-instrument-serif)] text-5xl md:text-8xl leading-[1] tracking-tighter"
-        >
-          {t('manifestoMain')} <br />
-          <span className="font-[family-name:var(--font-cormorant)] italic font-light text-brand-gold/80">
-            {t('manifestoSecond')}
-          </span>
-        </h2>
-      </div>
+      <section 
+        ref={containerRef}
+        className="relative w-full h-screen bg-[#050505] text-white flex flex-col items-center justify-center overflow-hidden"
+      >
+        {/* Background/Floating Images */}
+        <div ref={imagesRef} className="absolute inset-0 pointer-events-none z-0">
+          {/* Left floating image */}
+          <div className="image-wrapper absolute top-[60%] left-[5%] w-[25vw] md:w-[18vw] aspect-[3/4] overflow-hidden grayscale brightness-75">
+            <Image src="/media/estetica2.jpg" alt="Aesthetic" fill sizes="(max-width: 768px) 25vw, 18vw" className="object-cover" />
+          </div>
+          
+          {/* Right high floating image */}
+          <div className="image-wrapper absolute top-[80%] right-[8%] w-[28vw] md:w-[22vw] aspect-[4/5] overflow-hidden grayscale brightness-75">
+            <Image src="/media/perfect_smile.png" alt="Perfect Smile" fill sizes="(max-width: 768px) 28vw, 22vw" className="object-cover" />
+          </div>
+          
+          {/* Center-bottom subtle image */}
+          <div className="image-wrapper absolute top-[110%] left-1/2 -translate-x-1/2 w-[40vw] md:w-[25vw] aspect-square overflow-hidden rounded-full opacity-60 grayscale brightness-50">
+            <Image src="/media/estetica_digital_02.jpg" alt="Digital Aesthetics" fill sizes="(max-width: 768px) 40vw, 25vw" className="object-cover" />
+          </div>
+        </div>
 
-      {/* Modern Scroll Guide */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 opacity-20">
-        <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white to-transparent" />
-      </div>
-    </section>
+        {/* Foreground Pinned Text */}
+        <div ref={textContainerRef} className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center flex flex-col items-center justify-center">
+          <p className="font-[family-name:var(--font-tenor)] text-xs md:text-sm uppercase tracking-[0.4em] text-brand-gold mb-10 opacity-70">
+            Nuestra Visión
+          </p>
+          
+          <h2 
+            key={phraseIndex}
+            ref={textRef}
+            className="font-[family-name:var(--font-instrument-serif)] text-5xl md:text-7xl lg:text-9xl leading-[1.05] tracking-tight max-w-[90vw]"
+          >
+            {currentPhrase.main} <br />
+            <span className="font-[family-name:var(--font-cormorant)] italic font-light text-brand-gold/90">
+              {currentPhrase.second}
+            </span>
+          </h2>
+        </div>
+      </section>
+    </>
   );
 }
