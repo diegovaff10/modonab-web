@@ -7,6 +7,11 @@ import Loader from "@/components/Loader";
 import Services from "@/components/Services";
 import Technology from "@/components/Technology";
 import Courses from "@/components/Courses";
+import Founders from "@/components/Founders";
+import Stats from "@/components/Stats";
+import Testimonials from "@/components/Testimonials";
+import CTA from "@/components/CTA";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,6 +42,11 @@ export default function Home() {
       <Services />
       <Technology />
       <Courses />
+      <Founders />
+      <Stats />
+      <Testimonials />
+      <CTA />
+      <Footer />
     </main>
   );
 }

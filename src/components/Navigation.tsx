@@ -123,10 +123,11 @@ export default function Navigation() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const menuItems = [
-    { key: 'navTreatments', href: '#treatments' },
-    { key: 'navStory', href: '#our-story' },
-    { key: 'navJournal', href: '#journal' },
-    { key: 'navContact', href: '#contact' },
+    { labelEn: 'About us', labelEs: 'Nosotros', href: '#manifesto' },
+    { labelEn: 'Services', labelEs: 'Servicios', href: '#services' },
+    { labelEn: 'Technology', labelEs: 'Tecnología', href: '#technology' },
+    { labelEn: 'Courses', labelEs: 'Cursos', href: '#courses' },
+    { labelEn: 'Founders', labelEs: 'Fundadores', href: '#founders' },
   ];
 
   return (
@@ -136,19 +137,27 @@ export default function Navigation() {
         ref={menuOverlayRef}
         className="fixed inset-0 z-40 bg-black/40 dark:bg-black/60 backdrop-blur-[40px] saturate-150 flex items-center justify-center pointer-events-none opacity-0"
       >
-        <nav ref={menuLinksRef} className="flex flex-col items-center gap-8 text-center">
+        <nav ref={menuLinksRef} className="flex flex-col items-center gap-6 text-center">
           {menuItems.map((item, idx) => (
             <Link
               key={idx}
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
-              className="font-[family-name:var(--font-cormorant)] italic text-4xl md:text-6xl text-white/90 hover:text-white transition-colors uppercase tracking-tight"
+              className="font-[family-name:var(--font-cormorant)] italic text-4xl md:text-5xl text-white/90 hover:text-white transition-colors uppercase tracking-tight"
             >
-              {t(item.key)}
+              {language === 'es' ? item.labelEs : item.labelEn}
             </Link>
           ))}
+          
+          <Link
+            href="#contact"
+            onClick={() => setIsMenuOpen(false)}
+            className="mt-6 px-10 py-4 rounded-full border border-white/30 font-sans text-xs md:text-sm tracking-[0.2em] uppercase text-white hover:bg-white hover:text-[#1A1A1D] transition-colors"
+          >
+            {language === 'es' ? 'Contacto' : 'Contact'}
+          </Link>
 
-          <div className="mt-10 flex flex-col items-center gap-6">
+          <div className="mt-8 flex flex-col items-center gap-6">
             <div className="flex gap-4 text-white/50 text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-tenor)]">
               <button
                 onClick={() => setLanguage('es')}
@@ -164,13 +173,6 @@ export default function Navigation() {
                 EN
               </button>
             </div>
-
-            <button
-              onClick={toggleTheme}
-              className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all"
-            >
-              {theme === 'dark' ? <Sun size={20} strokeWidth={1.5} /> : <Moon size={20} strokeWidth={1.5} />}
-            </button>
           </div>
         </nav>
       </div>
@@ -181,8 +183,8 @@ export default function Navigation() {
         className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-5 md:px-12 md:py-6 text-white transition-all duration-500 ease-out will-change-transform ${isMenuOpen ? "bg-transparent" : "bg-black/20 dark:bg-black/40 backdrop-blur-md border-b border-white/5"
           }`}
       >
-        {/* LEFT: Menu Trigger */}
-        <div className="flex-1 flex justify-start items-center gap-4">
+        {/* LEFT: Menu Trigger & Language */}
+        <div className="flex-1 flex justify-start items-center gap-6">
           <button
             onClick={toggleMenu}
             className="group flex items-center justify-center relative focus:outline-none transition-transform duration-300 hover:scale-105"
@@ -191,10 +193,20 @@ export default function Navigation() {
             {isMenuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
           </button>
 
-          <div className="hidden md:flex gap-2 text-[10px] uppercase tracking-[0.2em] font-sans text-white/50">
-            <button onClick={() => setLanguage('es')} className={language === 'es' ? 'text-white font-bold' : ''}>ES</button>
-            <span>/</span>
-            <button onClick={() => setLanguage('en')} className={language === 'en' ? 'text-white font-bold' : ''}>EN</button>
+          {/* Premium Pill Language Toggle */}
+          <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full p-1 text-[10px] uppercase tracking-[0.1em] font-sans font-medium">
+            <button 
+              onClick={() => setLanguage('es')} 
+              className={`px-3 py-1.5 rounded-full transition-all duration-300 ${language === 'es' ? 'bg-white text-[#1A1A1D]' : 'text-white/50 hover:text-white'}`}
+            >
+              ES
+            </button>
+            <button 
+              onClick={() => setLanguage('en')} 
+              className={`px-3 py-1.5 rounded-full transition-all duration-300 ${language === 'en' ? 'bg-white text-[#1A1A1D]' : 'text-white/50 hover:text-white'}`}
+            >
+              EN
+            </button>
           </div>
         </div>
 
@@ -203,25 +215,18 @@ export default function Navigation() {
           <Link
             href="/"
             onClick={() => isMenuOpen && setIsMenuOpen(false)}
-            className="font-[family-name:var(--font-instrument-serif)] text-3xl tracking-wide uppercase"
+            className="font-sans font-bold text-xl md:text-2xl tracking-[0.2em] uppercase text-white hover:opacity-80 transition-opacity"
           >
-            Modonab
+            MODONAB
           </Link>
         </div>
 
-        {/* RIGHT: CTA & Theme */}
-        <div className="flex-1 flex justify-end items-center gap-6">
-          <button
-            onClick={toggleTheme}
-            className="hidden md:block text-white/50 hover:text-white transition-colors"
-          >
-            {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
-          </button>
-
+        {/* RIGHT: CTA */}
+        <div className="flex-1 flex justify-end items-center">
           <Link
             href="#contact"
             onClick={() => isMenuOpen && setIsMenuOpen(false)}
-            className="group relative font-[family-name:var(--font-tenor)] text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium"
+            className="group relative px-6 py-2.5 rounded-full border border-white/30 font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-white hover:bg-white hover:text-[#1A1A1D] transition-all duration-300 shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_20px_0_rgba(255,255,255,0.3)]"
           >
             {t('navConsultation')}
           </Link>
