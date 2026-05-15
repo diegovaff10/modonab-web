@@ -22,6 +22,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       yPercent: 120,
       rotateX: -45,
       opacity: 0,
+      color: "#333333",
       transformOrigin: "bottom center"
     });
     
@@ -55,6 +56,14 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
       duration: 1.5,
       ease: "expo.out",
     }, 0.5)
+
+    // Efecto "pintado": letra por letra cambia a color claro
+    .to(splitText.chars, {
+      color: "#F5F5F5",
+      stagger: 0.1,
+      duration: 0.5,
+      ease: "none"
+    }, 0.8)
 
     // Slight tracking out for breathing room
     .to(textRef.current, {

@@ -4,12 +4,21 @@ import { useState, useEffect } from "react";
 import { useLenis } from "lenis/react";
 import Hero from "@/components/Hero";
 import Loader from "@/components/Loader";
-import Manifesto from "@/components/Manifesto";
 import Services from "@/components/Services";
+import Technology from "@/components/Technology";
+import Courses from "@/components/Courses";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const lenis = useLenis();
+
+  useEffect(() => {
+    // Force scroll to top on reload
+    window.scrollTo(0, 0);
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  }, []);
 
   useEffect(() => {
     // Stop scrolling while loading
@@ -25,8 +34,9 @@ export default function Home() {
       {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />}
 
       <Hero />
-      <Manifesto />
       <Services />
+      <Technology />
+      <Courses />
     </main>
   );
 }
